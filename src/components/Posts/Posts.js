@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import './Posts.scss';
 import List from '@material-ui/core/List';
@@ -10,7 +10,9 @@ import { FaUser} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 
 const Posts = (props) => {
+
     const {posts, users} = props;
+
     return (
         <div className='container-posts'>
             <List>
@@ -20,24 +22,36 @@ const Posts = (props) => {
                         return user.id === userId
                     });
                     return (
-                        <Link
-                            key={id}
-                            to={`/${id}`}
-                            className='link'
-                        >
-
-                        <ListItem alignItems='flex-start'>
-                            <ListItemAvatar>
-                                <FaUser />
-                                <div>{user.username}</div>
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={title}
-                                secondary={body}
-                            />
-                        </ListItem>
-                        <Divider variant='inset' component='li' />
-                        </Link>
+                        <Fragment key={post.id}>
+                            <ListItem alignItems='flex-start'>
+                                <div className='user'>
+                                    <Link
+                                        key={userId}
+                                        to={`/users/${userId}`}
+                                        className='link'
+                                    >
+                                        <ListItemAvatar>
+                                            <>
+                                                <FaUser />
+                                                <div>{user.username}</div>
+                                            </>
+                                        </ListItemAvatar>
+                                    </Link>
+                                </div>
+                                <ListItemText
+                                    primary={
+                                        <Link
+                                            key={id}
+                                            to={`/${id}`}
+                                            className='link'
+                                        >{title}
+                                        </Link>
+                                    }
+                                    secondary={body}
+                                />
+                            </ListItem>
+                            <Divider variant='inset' component='li' className='separator'/>
+                        </Fragment>
                     );
                 })}
 
@@ -47,8 +61,8 @@ const Posts = (props) => {
 };
 
 Posts.propTypes = {
-    posts: PropTypes.array.isRequired,
-    users: PropTypes.array.isRequired,
+    posts: PropTypes.array,
+    users: PropTypes.array,
 };
 
 export default Posts;

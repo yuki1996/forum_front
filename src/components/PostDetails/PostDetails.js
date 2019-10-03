@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import './PostDetails.scss';
 import {TableBody, TableCell} from '@material-ui/core';
 import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import {Link} from "react-router-dom";
 
 const PostDetails = (props) => {
     const {post, user, comments} = props;
@@ -15,35 +15,30 @@ const PostDetails = (props) => {
         {post == null ?
             <div>Post not found</div> :
             <div className='container-post-details'>
-                <h1>
-                    {post.title} by {user.username}
-                </h1>
+
+                    <h1>
+                        {post.title} by
+                        <Link
+                            key={user.id}
+                            to={`/users/${user.id}`}
+                            className='link'
+                        >
+                            {` ${user.username}`}
+                        </Link>
+                    </h1>
                 <div>
                     {post.body}
                 </div>
                 <Paper className='comments'>
                     <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>
-                                    User
-                                </TableCell>
-                                <TableCell>
-                                    Comment
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
                         <TableBody>
                         {comments.map((post) => {
-                            const {id, postId, name, email, body} = post;
+                            const {id, name, email, body} = post;
                             return (
                                 <TableRow key={id}>
                                     <TableCell>
-                                        {email}
-                                    </TableCell>
-                                    <TableCell>
                                         <div>
-                                            {name}
+                                            <span>{email}:</span> {name}
                                         </div>
                                         <div>
                                             {body}
@@ -64,7 +59,7 @@ const PostDetails = (props) => {
 PostDetails.propTypes = {
     post: PropTypes.object.isRequired,
     comments: PropTypes.array.isRequired,
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
 };
 
 export default PostDetails;

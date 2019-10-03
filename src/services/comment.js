@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import { BACKEND_URL } from '../config';
 
 const getComments = async (postId) => {
@@ -9,4 +8,5 @@ const getComments = async (postId) => {
 
     return response.data;
 };
+
 export { getComments };
