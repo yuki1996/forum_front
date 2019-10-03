@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {getPosts} from "../../services/post";
-import Posts from "./Posts";
-import {getUsers} from "../../services/user";
+import {getPosts} from '../../services/post';
+import Posts from './Posts';
+import {getUsers} from '../../services/user';
 
 class PostsContainer extends Component {
 

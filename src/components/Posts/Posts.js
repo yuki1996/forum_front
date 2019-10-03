@@ -1,17 +1,18 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './Posts.scss';
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { FaUser} from 'react-icons/fa';
+import {Link} from 'react-router-dom';
 
 const Posts = (props) => {
     const {posts, users} = props;
     return (
-        <div className="container-posts">
+        <div className='container-posts'>
             <List>
                 {posts.map((post) => {
                     const {id, userId, title, body} = post;
@@ -19,19 +20,24 @@ const Posts = (props) => {
                         return user.id === userId
                     });
                     return (
-                        <Fragment key={id}>
-                            <ListItem alignItems="flex-start">
-                                <ListItemAvatar>
-                                    <FaUser />
-                                    <div>{user.username}</div>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    primary={title}
-                                    secondary={body}
-                                />
-                            </ListItem>
-                            <Divider variant="inset" component="li" />
-                        </Fragment>
+                        <Link
+                            key={id}
+                            to={`/${id}`}
+                            className='link'
+                        >
+
+                        <ListItem alignItems='flex-start'>
+                            <ListItemAvatar>
+                                <FaUser />
+                                <div>{user.username}</div>
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={title}
+                                secondary={body}
+                            />
+                        </ListItem>
+                        <Divider variant='inset' component='li' />
+                        </Link>
                     );
                 })}
 
